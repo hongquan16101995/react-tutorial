@@ -1,89 +1,64 @@
+import {Field, Form, Formik} from "formik";
 import {useState} from "react";
-import {Product} from "./Product";
 
 export default function FormProduct(props) {
-    const [productCreate, setProductCreate] = useState(new Product());
+
+    const [indexAuto, setIndexAuto] = useState(3)
 
     return (
         <>
             <div>
                 <h3>Form product</h3>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>Id</td>
-                        <td><input id={'id'} type="text"
-                                   placeholder={props.productUpdate.id}
-                                   onChange={(e) => {
-                                       getValue(e)
-                                   }}/></td>
-                    </tr>
-                    <tr>
-                        <td>Name</td>
-                        <td><input id={'name'} type="text"
-                                   placeholder={props.productUpdate.name}
-                                   onChange={(e) => {
-                                       getValue(e)
-                                   }}/></td>
-                    </tr>
-                    <tr>
-                        <td>Price</td>
-                        <td><input id={'price'} type="text"
-                                   placeholder={props.productUpdate.price}
-                                   onChange={(e) => {
-                                       getValue(e)
-                                   }}/></td>
-                    </tr>
-                    <tr>
-                        <td>Category</td>
-                        <td><input id={'category'} type="text"
-                                   placeholder={props.productUpdate.category}
-                                   onChange={(e) => {
-                                       getValue(e)
-                                   }}/></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <button onClick={create}>Create</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <Formik
+                    initialValues={props.productUpdate}
+                    onSubmit={(values) => {
+                        create(values)
+                    }}
+                    enableReinitialize={true}
+                >
+                    <Form>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td><label htmlFor={'name'}>Name</label></td>
+                                <td><Field id={'name'} type={'text'}
+                                           name={'name'}></Field></td>
+                            </tr>
+                            <tr>
+                                <td><label htmlFor={'price'}>Price</label></td>
+                                <td><Field id={'price'} type={'number'}
+                                           name={'price'}></Field></td>
+                            </tr>
+                            <tr>
+                                <td><label htmlFor={'category'}>Category</label></td>
+                                <td><Field id={'category'} type={'text'}
+                                           name={'category'}></Field></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type={'submit'}>Save</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </Form>
+                </Formik>
             </div>
         </>
     )
 
-    function getValue(e) {
-        if (e.target.id === "id") {
-            productCreate.id = +e.target.value
-            setProductCreate(productCreate)
-        } else if (e.target.id === "name") {
-            productCreate.name = e.target.value
-            setProductCreate(productCreate)
-        } else if (e.target.id === "price") {
-            productCreate.price = +e.target.value
-            setProductCreate(productCreate)
-        } else {
-            productCreate.category = e.target.value
-            setProductCreate(productCreate)
-        }
-    }
+    function create(values) {
 
-    function create() {
-        let index = checkId(productCreate.id);
+        let index = checkId(values.id);
         if (index !== -1) {
-            updatePost(index)
+            updatePost(index, values)
         } else {
-            props.products.push(productCreate)
+            values.id = indexAuto + 1
+            props.products.push(values)
         }
-        setProductCreate({})
-
-        document.getElementById("id").value = ""
-        document.getElementById("name").value = ""
-        document.getElementById("price").value = ""
-        document.getElementById("category").value = ""
         props.test()
+        setIndexAuto(indexAuto + 1)
     }
 
     function checkId(id) {
@@ -95,15 +70,15 @@ export default function FormProduct(props) {
         return -1
     }
 
-    function updatePost(index) {
-        if (productCreate.name !== undefined) {
-            props.products[index].name = productCreate.name
+    function updatePost(index, values) {
+        if (values.name !== undefined) {
+            props.products[index].name = values.name
         }
-        if (productCreate.price !== undefined) {
-            props.products[index].price = productCreate.price
+        if (values.price !== undefined) {
+            props.products[index].price = values.price
         }
-        if (productCreate.category !== undefined) {
-            props.products[index].category = productCreate.category
+        if (values.category !== undefined) {
+            props.products[index].category = values.category
         }
     }
 }

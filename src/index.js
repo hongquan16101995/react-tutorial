@@ -1,23 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Demo from "./Demo";
 import ProductView from "./product/ProductView";
-import ProductView2 from "./product/ProductView2";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Home from "./home/Home";
+import FormProduct from "./product/FormProduct";
+import ClassComponent from "./product/ClassComponent";
 
 //tạo root để render các component thành phần khởi tạo trước đó
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     //React.StrictMode là component của React, cho phép render 2 lần để kiểm tra chính xác các mã nguồn được viết
     <React.StrictMode>
+        <BrowserRouter>
+            <Home/>
+            <Routes>
+                <Route path={'/'} element={<ProductView/>}>Danh sách</Route>
+                <Route path={'/form'} element={<FormProduct/>}>Tạo mới</Route>
+            </Routes>
+        </BrowserRouter>
+
         {/*gọi component App.js*/}
         {/*<App/>*/}
+
         {/*sử dụng DemoComponent như 1 thẻ HTML*/}
         {/*<Demo/>*/}
-        <ProductView/>
-        {/*<ProductView2/>*/}
+
+        {/*sử dụng lifecycle trong ClassComponent*/}
+        {/*<ClassComponent/>*/}
     </React.StrictMode>
 );
 

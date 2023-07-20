@@ -1,6 +1,6 @@
 import {Component} from "react";
 
-class ProductView2 extends Component {
+class ClassComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,4 +51,4 @@ class ProductView2 extends Component {
     }
 }
 
-export default ProductView2;
+export default ClassComponent;

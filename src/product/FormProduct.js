@@ -1,5 +1,6 @@
 import {Field, Form, Formik} from "formik";
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 export default function FormProduct(props) {
 
@@ -35,7 +36,7 @@ export default function FormProduct(props) {
                                            name={'category'}></Field></td>
                             </tr>
                             <tr>
-                                <td></td>
+                                <td><Link to={'/'}>Back home</Link></td>
                                 <td>
                                     <button type={'submit'}>Save</button>
                                 </td>

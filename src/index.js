@@ -7,6 +7,11 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./home/Home";
 import FormProduct from "./product/FormProduct";
 import ClassComponent from "./product/ClassComponent";
+import Test from "./home/Test";
+import Header from "./home/Header";
+import Footer from "./home/Footer";
+import ListCustomer from "./customer/ListCustomer";
+import FormCustomer from "./customer/FormCustomer";
 
 //tạo root để render các component thành phần khởi tạo trước đó
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,21 +19,33 @@ root.render(
     //React.StrictMode là component của React, cho phép render 2 lần để kiểm tra chính xác các mã nguồn được viết
     <React.StrictMode>
         <BrowserRouter>
-            <Home/>
+            {/*    <Header/>*/}
+            {/*    /!*<Home/>*!/*/}
+            {/*    /!*<ProductView/>*!/*/}
+            {/*    <Routes>*/}
+            {/*        <Route path={''} element={<Home/>}>*/}
+            {/*            <Route path={''} element={<ProductView/>}/>*/}
+            {/*            <Route path={'form'} element={<FormProduct/>}/>*/}
+            {/*            <Route path={'test'} element={<Test/>}/>*/}
+            {/*        </Route>*/}
+            {/*    </Routes>*/}
+            {/*    <Footer/>*/}
+
+
+            {/*gọi component App.js*/}
+            {/*<App/>*/}
+
+            {/*sử dụng DemoComponent như 1 thẻ HTML*/}
+            {/*<Demo/>*/}
+
+            {/*sử dụng lifecycle trong ClassComponent*/}
+            {/*<ClassComponent/>*/}
+
+            <ListCustomer/>
             <Routes>
-                <Route path={'/'} element={<ProductView/>}>Danh sách</Route>
-                <Route path={'/form'} element={<FormProduct/>}>Tạo mới</Route>
+                <Route path={'/form-customer/:id'} element={<FormCustomer/>}></Route>
             </Routes>
         </BrowserRouter>
-
-        {/*gọi component App.js*/}
-        {/*<App/>*/}
-
-        {/*sử dụng DemoComponent như 1 thẻ HTML*/}
-        {/*<Demo/>*/}
-
-        {/*sử dụng lifecycle trong ClassComponent*/}
-        {/*<ClassComponent/>*/}
     </React.StrictMode>
 );
 
